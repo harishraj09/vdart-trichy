@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complaint Tracking - VDart Trichy</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap"
+        rel="stylesheet">
+
+    <style>
+        :root {
+            --navy: #132043;
+            --navy-2: #1d2f5c;
+            --steel: #3a4d7a;
+            --gold: #c99a3b;
+            --gold-light: #e6c26b;
+            --paper: #f6f5f2;
+            --ink: #1a1d26;
+            --white: #ffffff;
+            --line: rgba(19, 32, 67, 0.12);
+            --success: #2e7d32;
+            --success-bg: #e8f5e9;
+            --pending-color: #ed6c02;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            background: var(--paper);
+            color: var(--ink);
+            line-height: 1.6;
+        }
+
+        header {
+            background: linear-gradient(120deg, var(--navy) 0%, var(--navy-2) 55%, var(--steel) 100%);
+            padding: 40px clamp(20px, 5vw, 64px);
+            color: var(--white);
+        }
+
+        header h1 {
+            font-family: 'Sora', sans-serif;
+            font-size: clamp(26px, 4vw, 38px);
+            margin: 0 0 8px;
+        }
+
+        header h1 span {
+            color: var(--gold-light);
+        }
+
+        header p {
+            margin: 0;
+            color: rgba(255, 255, 255, 0.85);
+            font-size: 15px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 0 clamp(20px, 5vw, 24px);
+        }
+
+        .card {
+            background: var(--white);
+            border: 1px solid var(--line);
+            border-radius: 12px;
+            padding: 36px;
+            box-shadow: 0 10px 30px rgba(19, 32, 67, 0.05);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-family: 'Sora', sans-serif;
+            font-weight: 600;
+            font-size: 14px;
+            color: var(--navy);
+            margin-bottom: 8px;
+        }
+
+        .search-box-row {
+            display: flex;
+            gap: 12px;
+        }
+
+        input[type="text"] {
+            flex: 1;
+            padding: 12px 16px;
+            border: 1.5px solid var(--line);
+            border-radius: 8px;
+            font-size: 16px;
+            font-family: monospace;
+            text-transform: uppercase;
+            background: var(--white);
+            color: var(--navy);
+            font-weight: bold;
+        }
+
+        input[type="text"]:focus {
+            outline: none;
+            border-color: var(--gold);
+            box-shadow: 0 0 0 3px rgba(201, 154, 59, 0.15);
+        }
+
+        .track-btn {
+            background: var(--navy);
+            color: var(--white);
+            border: none;
+            padding: 12px 24px;
+            font-family: 'Sora', sans-serif;
+            font-weight: 700;
+            font-size: 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .track-btn:hover {
+            background: var(--navy-2);
+        }
+
+        /* Status Result Box */
+        #statusResult {
+            display: none;
+            margin-top: 30px;
+            border-top: 2px solid var(--line);
+            padding-top: 30px;
+        }
+
+        .status-header-card {
+            background: var(--paper);
+            padding: 16px 20px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .status-header-card h3 {
+            margin: 0;
+            font-family: 'Sora', sans-serif;
+            font-size: 16px;
+            color: var(--navy);
+        }
+
+        .badge {
+            background: var(--pending-color);
+            color: var(--white);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+        }
+
+        /* Step-by-Step Timeline UI */
+        .timeline {
+            position: relative;
+            padding-left: 30px;
+            margin-top: 20px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 10px;
+            top: 5px;
+            bottom: 5px;
+            width: 3px;
+            background: var(--line);
+        }
+
+        .timeline-step {
+            position: relative;
+            margin-bottom: 25px;
+        }
+
+        .timeline-step:last-child {
+            margin-bottom: 0;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: -30px;
+            top: 2px;
+            width: 23px;
+            height: 23px;
+            border-radius: 50%;
+            background: var(--white);
+            border: 3px solid var(--line);
+            text-align: center;
+            line-height: 17px;
+            font-size: 10px;
+        }
+
+        /* Active & Completed States */
+        .timeline-step.completed .timeline-dot {
+            background: var(--success);
+            border-color: var(--success);
+            color: white;
+        }
+
+        .timeline-step.completed .timeline-title {
+            color: var(--navy);
+            font-weight: 700;
+        }
+
+        .timeline-step.active .timeline-dot {
+            background: var(--gold);
+            border-color: var(--gold);
+            box-shadow: 0 0 0 4px rgba(201, 154, 59, 0.2);
+        }
+
+        .timeline-step.active .timeline-title {
+            color: var(--navy);
+            font-weight: 800;
+        }
+
+        .timeline-title {
+            font-family: 'Sora', sans-serif;
+            font-size: 15px;
+            color: #7b8396;
+            margin: 0 0 4px;
+        }
+
+        .timeline-desc {
+            font-size: 13.5px;
+            color: #555;
+            margin: 0;
+        }
+
+        .error-msg {
+            color: #d32f2f;
+            font-weight: 600;
+            font-size: 14px;
+            margin-top: 10px;
+            display: none;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 30px;
+            text-decoration: none;
+            color: var(--navy);
+            font-weight: 600;
+            font-family: 'Sora', sans-serif;
+        }
+
+        .back-link:hover {
+            color: var(--gold);
+        }
+
+        footer {
+            padding: 26px clamp(20px, 5vw, 64px);
+            background: var(--navy);
+            color: rgba(255, 255, 255, 0.65);
+            font-size: 13px;
+            text-align: center;
+            margin-top: 60px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>Complaint <span>Tracking</span></h1>
+        <p>VDart Trichy - Mannarpuram Resolution Status Portal</p>
+    </header>
+
+    <div class="container">
+
+        <div class="card">
+            <form onsubmit="trackComplaint(event)">
+                <div class="form-group" style="margin-bottom: 0;">
+                    <label for="refInput">Complaint Reference Number</label>
+                    <div class="search-box-row">
+                        <input type="text" id="refInput" required placeholder="e.g. VDART-TRC-94821">
+                        <button type="submit" class="track-btn">Check Status</button>
+                    </div>
+                    <div id="errorText" class="error-msg">Invalid or unknown reference number. Please check and re-enter.</div>
+                </div>
+            </form>
+
+            <!-- Status Result Box (Step-by-Step UI) -->
+            <div id="statusResult">
+                <div class="status-header-card">
+                    <div>
+                        <h3>Reference: <span id="resRefText" style="font-family:monospace; color:var(--navy);"></span></h3>
+                        <p style="margin: 4px 0 0; font-size: 12.5px; color:#666;">Category: <span id="resCategoryText" style="font-weight:600;">Payroll / Placement Issue</span></p>
+                    </div>
+                    <div class="badge" id="resBadge">IN PROGRESS</div>
+                </div>
+
+                <h4 style="font-family:'Sora',sans-serif; color:var(--navy); font-size:16px; margin-bottom:20px;">Grievance Processing Workflow</h4>
+
+                <div class="timeline">
+                    <!-- Step 1 -->
+                    <div class="timeline-step completed" id="step1">
+                        <div class="timeline-dot">✓</div>
+                        <h5 class="timeline-title">1. Complaint Registered</h5>
+                        <p class="timeline-desc">Your issue has been successfully logged into the VDart Trichy grievance portal.</p>
+                    </div>
+
+                    <!-- Step 2 -->
+                    <div class="timeline-step completed" id="step2">
+                        <div class="timeline-dot">✓</div>
+                        <h5 class="timeline-title">2. Assigned to Committee</h5>
+                        <p class="timeline-desc">The ticket has been forwarded to the designated department head at Mannarpuram GCC.</p>
+                    </div>
+
+                    <!-- Step 3 -->
+                    <div class="timeline-step active" id="step3">
+                        <div class="timeline-dot">•</div>
+                        <h5 class="timeline-title">3. Under Investigation / Review</h5>
+                        <p class="timeline-desc">The internal team is actively auditing the details, contacting payroll/project leads for resolution.</p>
+                    </div>
+
+                    <!-- Step 4 -->
+                    <div class="timeline-step" id="step4">
+                        <div class="timeline-dot"></div>
+                        <h5 class="timeline-title">4. Resolution & Closing</h5>
+                        <p class="timeline-desc">Final corrective action taken and confirmation shared via your registered contact.</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <a href="index.html" class="back-link">&larr; Back to Home Dashboard</a>
+
+    </div>
+
+    <footer>
+        &copy; 2026 VDart Trichy. All rights reserved.
+    </footer>
+
+    <script>
+        function trackComplaint(event) {
+            event.preventDefault();
+            
+            const inputVal = document.getElementById("refInput").value.trim().toUpperCase();
+            const errorDiv = document.getElementById("errorText");
+            const resultBox = document.getElementById("statusResult");
+
+            // Simple validation: accepts any valid input starting with VDART-TRC- or custom numbers
+            if (inputVal.includes("VDART-TRC")) {
+                errorDiv.style.display = "none";
+                document.getElementById("resRefText").innerText = inputVal;
+                
+                // Show result box smoothly
+                resultBox.style.display = "block";
+                
+                // Scroll down to view result
+                resultBox.scrollIntoView({ behavior: 'smooth' });
+            } else {
+                // If user types anything else or testing dummy codes, allow sample view for demo or show error
+                if(inputVal.length >= 5) {
+                    errorDiv.style.display = "none";
+                    document.getElementById("resRefText").innerText = inputVal;
+                    resultBox.style.display = "block";
+                    resultBox.scrollIntoView({ behavior: 'smooth' });
+                } else {
+                    errorDiv.style.display = "block";
+                    resultBox.style.display = "none";
+                }
+            }
+        }
+    </script>
+
+</body>
+
+</html>

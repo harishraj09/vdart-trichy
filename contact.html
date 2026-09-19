@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - VDart Trichy</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap"
+        rel="stylesheet">
+
+    <style>
+        :root {
+            --navy: #132043;
+            --navy-2: #1d2f5c;
+            --steel: #3a4d7a;
+            --gold: #c99a3b;
+            --gold-light: #e6c26b;
+            --paper: #f6f5f2;
+            --ink: #1a1d26;
+            --white: #ffffff;
+            --line: rgba(19, 32, 67, 0.12);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            background: var(--paper);
+            color: var(--ink);
+            line-height: 1.6;
+        }
+
+        header {
+            background: linear-gradient(120deg, var(--navy) 0%, var(--navy-2) 55%, var(--steel) 100%);
+            padding: 40px clamp(20px, 5vw, 64px);
+            color: var(--white);
+        }
+
+        header h1 {
+            font-family: 'Sora', sans-serif;
+            font-size: clamp(28px, 4vw, 42px);
+            margin: 0 0 8px;
+        }
+
+        header h1 span {
+            color: var(--gold-light);
+        }
+
+        header p {
+            margin: 0;
+            color: rgba(255, 255, 255, 0.85);
+            font-size: 15px;
+        }
+
+        .container {
+            max-width: 950px;
+            margin: 40px auto;
+            padding: 0 clamp(20px, 5vw, 24px);
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 24px;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            background: var(--white);
+            border: 1px solid var(--line);
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(19, 32, 67, 0.05);
+        }
+
+        .card h2 {
+            font-family: 'Sora', sans-serif;
+            color: var(--navy);
+            font-size: 20px;
+            margin-top: 0;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-bottom: 2px solid var(--paper);
+            padding-bottom: 10px;
+        }
+
+        .contact-item {
+            margin-bottom: 16px;
+        }
+
+        .contact-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .contact-item label {
+            display: block;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--steel);
+            margin-bottom: 4px;
+        }
+
+        .contact-item p {
+            margin: 0;
+            font-size: 15px;
+            color: var(--ink);
+            font-weight: 500;
+        }
+
+        .contact-item a {
+            color: var(--navy);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .contact-item a:hover {
+            color: var(--gold);
+        }
+
+        /* Facilities Grid */
+        .facility-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin-top: 16px;
+        }
+
+        .facility-box {
+            background: var(--paper);
+            padding: 16px;
+            border-radius: 8px;
+            border-left: 3.5px solid var(--gold);
+        }
+
+        .facility-box h4 {
+            margin: 0 0 6px;
+            font-family: 'Sora', sans-serif;
+            font-size: 15px;
+            color: var(--navy);
+        }
+
+        .facility-box p {
+            margin: 0;
+            font-size: 13px;
+            color: #555;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 20px;
+            text-decoration: none;
+            color: var(--navy);
+            font-weight: 600;
+            font-family: 'Sora', sans-serif;
+        }
+
+        .back-link:hover {
+            color: var(--gold);
+        }
+
+        footer {
+            padding: 26px clamp(20px, 5vw, 64px);
+            background: var(--navy);
+            color: rgba(255, 255, 255, 0.65);
+            font-size: 13px;
+            text-align: center;
+            margin-top: 60px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>Contact <span>VDart Trichy</span></h1>
+        <p>Connect with our recruitment team or visit our office facilities in Tiruchirappalli</p>
+    </header>
+
+    <div class="container">
+
+        <!-- Direct Contact Details -->
+        <div class="card" style="margin-bottom: 24px;">
+            <h2>📞 Quick Contact Info</h2>
+            <div class="grid-2" style="margin-bottom: 0;">
+                <div class="contact-item">
+                    <label>Landline Phone</label>
+                    <p><a href="tel:+914314241441">+91 0431 4241441</a></p>
+                </div>
+                <div class="contact-item">
+                    <label>Mobile / Whatsapp Helpline</label>
+                    <p><a href="tel:+919842896422">+91 98428 96422</a></p>
+                </div>
+                <div class="contact-item">
+                    <label>General Email</label>
+                    <p><a href="mailto:trichy@vdartinc.com">trichy@vdartinc.com</a></p>
+                </div>
+                <div class="contact-item">
+                    <label>Official Corporate / Finance Email</label>
+                    <p><a href="mailto:info.finance@vdartinc.com">info.finance@vdartinc.com</a></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Office Addresses -->
+        <div class="grid-2">
+            
+            <!-- Address 1: Mannarpuram GCC -->
+            <div class="card">
+                <h2>📍 Mannarpuram Branch (GCC)</h2>
+                <div class="contact-item">
+                    <label>Facility</label>
+                    <p>Global Capability Center (GCC)</p>
+                </div>
+                <div class="contact-item">
+                    <label>Address</label>
+                    <p>
+                        No. 30, Chennai – Theni Highway,<br>
+                        Mannarpuram, Sangillyandapuram,<br>
+                        Tiruchirappalli, Tamil Nadu – 620020.
+                    </p>
+                </div>
+                <div class="contact-item">
+                    <label>Landmark</label>
+                    <p>Near Mannarpuram Flyover Signal</p>
+                </div>
+            </div>
+
+            <!-- Address 2: Cantonment Office -->
+            <div class="card">
+                <h2>🏢 Cantonment Branch (HQ)</h2>
+                <div class="contact-item">
+                    <label>Facility</label>
+                    <p>Corporate Headquarters & Operations</p>
+                </div>
+                <div class="contact-item">
+                    <label>Address</label>
+                    <p>
+                        No. 40, 4th Cross Street, Raja Colony,<br>
+                        Collectors Office Road, Cantonment,<br>
+                        Tiruchirappalli, Tamil Nadu – 620001.
+                    </p>
+                </div>
+                <div class="contact-item">
+                    <label>Landmark</label>
+                    <p>Opposite District Collectorate Office</p>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- VDart Campus Facilities Section -->
+        <div class="card">
+            <h2>⚙️ Campus Facilities & Highlights</h2>
+            <p style="margin: 0 0 10px; color:#555; font-size: 14.5px;">State-of-the-art infrastructure designed for seamless global staffing operations and candidate onboarding:</p>
+            
+            <div class="facility-grid">
+                <div class="facility-box">
+                    <h4>🖥️ Interview & Assessment Labs</h4>
+                    <p>High-speed computer labs equipped for technical coding tests & online assessments.</p>
+                </div>
+
+                <div class="facility-box">
+                    <h4>🎤 Video Conferencing Rooms</h4>
+                    <p>Dedicated high-definition VC suites for direct client-to-candidate interviews.</p>
+                </div>
+
+                <div class="facility-box">
+                    <h4>🤝 Helpdesk & Grievance Counter</h4>
+                    <p>Walk-in Support Desk for candidates to submit documents, queries, or complaints.</p>
+                </div>
+
+                <div class="facility-box">
+                    <h4>⚡ 24/7 Power Backup & Connectivity</h4>
+                    <p>Uninterrupted power supply with high-speed leased line internet connectivity.</p>
+                </div>
+            </div>
+        </div>
+
+        <a href="index.html" class="back-link">&larr; Back to Home Dashboard</a>
+
+    </div>
+
+    <footer>
+        &copy; 2026 VDart Trichy. All rights reserved.
+    </footer>
+
+</body>
+
+</html>

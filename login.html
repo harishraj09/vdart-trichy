@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - VDart Trichy</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap"
+        rel="stylesheet">
+
+    <style>
+        :root {
+            --navy: #132043;
+            --navy-2: #1d2f5c;
+            --steel: #3a4d7a;
+            --gold: #c99a3b;
+            --gold-light: #e6c26b;
+            --paper: #f6f5f2;
+            --ink: #1a1d26;
+            --white: #ffffff;
+            --line: rgba(19, 32, 67, 0.12);
+            --success: #2e7d32;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            background: var(--paper);
+            color: var(--ink);
+            line-height: 1.6;
+        }
+
+        header {
+            background: linear-gradient(120deg, var(--navy) 0%, var(--navy-2) 55%, var(--steel) 100%);
+            padding: 36px clamp(20px, 5vw, 64px);
+            color: var(--white);
+            text-align: center;
+        }
+
+        header h1 {
+            font-family: 'Sora', sans-serif;
+            font-size: clamp(26px, 4vw, 36px);
+            margin: 0 0 6px;
+        }
+
+        header h1 span {
+            color: var(--gold-light);
+        }
+
+        header p {
+            margin: 0;
+            color: rgba(255, 255, 255, 0.85);
+            font-size: 14.5px;
+        }
+
+        .container {
+            max-width: 480px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .card {
+            background: var(--white);
+            border: 1px solid var(--line);
+            border-radius: 14px;
+            padding: 36px;
+            box-shadow: 0 15px 35px rgba(19, 32, 67, 0.08);
+        }
+
+        /* Role Switcher Tabs */
+        .role-tabs {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            background: var(--paper);
+            padding: 4px;
+            border-radius: 10px;
+            margin-bottom: 24px;
+        }
+
+        .tab-btn {
+            background: transparent;
+            border: none;
+            padding: 10px;
+            font-family: 'Sora', sans-serif;
+            font-weight: 600;
+            font-size: 13.5px;
+            color: #666;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .tab-btn.active {
+            background: var(--white);
+            color: var(--navy);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-family: 'Sora', sans-serif;
+            font-weight: 600;
+            font-size: 13.5px;
+            color: var(--navy);
+            margin-bottom: 8px;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1.5px solid var(--line);
+            border-radius: 8px;
+            font-size: 15px;
+            font-family: 'Inter', sans-serif;
+            background: var(--white);
+            color: var(--ink);
+            transition: border-color 0.2s;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: var(--gold);
+            box-shadow: 0 0 0 3px rgba(201, 154, 59, 0.15);
+        }
+
+        .login-btn {
+            background: var(--navy);
+            color: var(--white);
+            border: none;
+            padding: 14px;
+            font-family: 'Sora', sans-serif;
+            font-weight: 700;
+            font-size: 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            width: 100%;
+            transition: background 0.2s;
+            margin-top: 6px;
+        }
+
+        .login-btn:hover {
+            background: var(--navy-2);
+        }
+
+        .error-msg {
+            color: #d32f2f;
+            font-size: 13px;
+            margin-top: 6px;
+            display: none;
+        }
+
+        /* Post-Login Mock Dashboard View (Hidden initially) */
+        #dashboardView {
+            display: none;
+        }
+
+        .dash-welcome {
+            background: #e8f5e9;
+            border: 1px solid var(--success);
+            padding: 16px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            color: var(--success);
+            font-weight: 600;
+            text-align: center;
+        }
+
+        .dash-box {
+            background: var(--paper);
+            padding: 16px;
+            border-radius: 8px;
+            margin-bottom: 12px;
+            border-left: 4px solid var(--gold);
+        }
+
+        .dash-box h4 {
+            margin: 0 0 4px;
+            font-family: 'Sora', sans-serif;
+            color: var(--navy);
+            font-size: 15px;
+        }
+
+        .dash-box p {
+            margin: 0;
+            font-size: 13.5px;
+            color: #555;
+        }
+
+        .logout-btn {
+            background: #d32f2f;
+            color: white;
+            border: none;
+            padding: 10px;
+            width: 100%;
+            border-radius: 8px;
+            font-family: 'Sora', sans-serif;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 16px;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 24px;
+            text-decoration: none;
+            color: var(--navy);
+            font-weight: 600;
+            font-family: 'Sora', sans-serif;
+            text-align: center;
+            width: 100%;
+        }
+
+        .back-link:hover {
+            color: var(--gold);
+        }
+
+        footer {
+            padding: 24px;
+            background: var(--navy);
+            color: rgba(255, 255, 255, 0.65);
+            font-size: 13px;
+            text-align: center;
+            margin-top: 60px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>VDart Trichy <span>Portal</span></h1>
+        <p>Employee &amp; Admin Secure Access Hub</p>
+    </header>
+
+    <div class="container">
+
+        <div class="card">
+            
+            <!-- LOGIN FORM SECTION -->
+            <div id="loginFormSection">
+                
+                <!-- Role Selector Tabs -->
+                <div class="role-tabs">
+                    <button class="tab-btn active" id="empTab" onclick="switchRole('employee')">Employee Login</button>
+                    <button class="tab-btn" id="adminTab" onclick="switchRole('admin')">Admin / HR Login</button>
+                </div>
+
+                <form onsubmit="handleLogin(event)">
+                    
+                    <div class="form-group">
+                        <label id="userLabel">Employee ID / Email</label>
+                        <input type="text" id="username" required placeholder="e.g. TRC1024 or name@vdartinc.com">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="password" id="password" required placeholder="Enter your secure password">
+                        <div id="loginError" class="error-msg">Invalid credentials. Try any ID/Password to test demo.</div>
+                    </div>
+
+                    <button type="submit" class="login-btn" id="submitBtnText">Sign In as Employee</button>
+
+                </form>
+
+            </div>
+
+            <!-- SUCCESS DASHBOARD MOCK (Appears after login) -->
+            <div id="dashboardView">
+                <div class="dash-welcome">
+                    🎉 Welcome back, <span id="roleTitleDisplay">Employee</span>!
+                </div>
+
+                <div id="employeeContent">
+                    <div class="dash-box">
+                        <h4>📄 Payslip &amp; Salary Records</h4>
+                        <p>Download latest February &amp; March 2026 salary slips.</p>
+                    </div>
+                    <div class="dash-box">
+                        <h4>📅 Attendance &amp; Shift Log</h4>
+                        <p>Mannarpuram GCC Office Check-ins: 100% Present this month.</p>
+                    </div>
+                    <div class="dash-box">
+                        <h4>📝 Grievance Support</h4>
+                        <p>Track your registered complaints and status updates.</p>
+                    </div>
+                </div>
+
+                <div id="adminContent" style="display: none;">
+                    <div class="dash-box">
+                        <h4>👥 Candidate Registrations</h4>
+                        <p>42 new resumes uploaded today for IT/BPO roles.</p>
+                    </div>
+                    <div class="dash-box">
+                        <h4>⚙️ Complaint Management</h4>
+                        <p>3 active payroll/placement tickets requiring review.</p>
+                    </div>
+                    <div class="dash-box">
+                        <h4>🏢 Office Facilities Control</h4>
+                        <p>Mannarpuram &amp; Cantonment branch status: Active.</p>
+                    </div>
+                </div>
+
+                <button class="logout-btn" onclick="handleLogout()">Sign Out</button>
+            </div>
+
+        </div>
+
+        <a href="index.html" class="back-link">&larr; Back to Home Dashboard</a>
+
+    </div>
+
+    <footer>
+        &copy; 2026 VDart Trichy. All rights reserved.
+    </footer>
+
+    <script>
+        let currentRole = 'employee';
+
+        function switchRole(role) {
+            currentRole = role;
+            const empTab = document.getElementById('empTab');
+            const adminTab = document.getElementById('adminTab');
+            const userLabel = document.getElementById('userLabel');
+            const submitBtn = document.getElementById('submitBtnText');
+            const usernameInput = document.getElementById('username');
+
+            if (role === 'employee') {
+                empTab.classList.add('active');
+                adminTab.classList.remove('active');
+                userLabel.innerText = "Employee ID / Email";
+                usernameInput.placeholder = "e.g. TRC1024 or name@vdartinc.com";
+                submitBtn.innerText = "Sign In as Employee";
+            } else {
+                adminTab.classList.add('active');
+                empTab.classList.remove('active');
+                userLabel.innerText = "Admin / HR Username";
+                usernameInput.placeholder = "e.g. trichy.hr@vdartinc.com";
+                submitBtn.innerText = "Sign In as Admin / HR";
+            }
+            document.getElementById('loginError').style.display = 'none';
+        }
+
+        function handleLogin(event) {
+            event.preventDefault();
+            
+            // Simulating successful login for demonstration
+            document.getElementById('loginFormSection').style.display = 'none';
+            document.getElementById('dashboardView').style.display = 'block';
+
+            if (currentRole === 'employee') {
+                document.getElementById('roleTitleDisplay').innerText = "Employee Portal";
+                document.getElementById('employeeContent').style.display = 'block';
+                document.getElementById('adminContent').style.display = 'none';
+            } else {
+                document.getElementById('roleTitleDisplay').innerText = "Admin / HR Management";
+                document.getElementById('employeeContent').style.display = 'none';
+                document.getElementById('adminContent').style.display = 'block';
+            }
+        }
+
+        function handleLogout() {
+            document.getElementById('dashboardView').style.display = 'none';
+            document.getElementById('loginFormSection').style.display = 'block';
+            document.getElementById('username').value = '';
+            document.getElementById('password').value = '';
+        }
+    </script>
+
+</body>
+
+</html>

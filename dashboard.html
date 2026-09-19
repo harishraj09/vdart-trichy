@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - VDart Trichy</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap"
+        rel="stylesheet">
+
+    <!-- Chart.js for Graphical Analytics -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        :root {
+            --navy: #132043;
+            --navy-2: #1d2f5c;
+            --steel: #3a4d7a;
+            --gold: #c99a3b;
+            --gold-light: #e6c26b;
+            --paper: #f6f5f2;
+            --ink: #1a1d26;
+            --white: #ffffff;
+            --line: rgba(19, 32, 67, 0.12);
+            --success: #2e7d32;
+            --warning: #ed6c02;
+            --danger: #d32f2f;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            background: var(--paper);
+            color: var(--ink);
+            line-height: 1.6;
+        }
+
+        header {
+            background: linear-gradient(120deg, var(--navy) 0%, var(--navy-2) 55%, var(--steel) 100%);
+            padding: 40px clamp(20px, 5vw, 64px);
+            color: var(--white);
+        }
+
+        header h1 {
+            font-family: 'Sora', sans-serif;
+            font-size: clamp(28px, 4vw, 42px);
+            margin: 0 0 8px;
+        }
+
+        header h1 span {
+            color: var(--gold-light);
+        }
+
+        header p {
+            margin: 0;
+            color: rgba(255, 255, 255, 0.85);
+            font-size: 15px;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 40px auto;
+            padding: 0 clamp(20px, 5vw, 24px);
+        }
+
+        /* KPI Metric Cards */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: var(--white);
+            border: 1px solid var(--line);
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 8px 24px rgba(19, 32, 67, 0.04);
+            border-top: 4px solid var(--navy);
+        }
+
+        .stat-card.gold {
+            border-top-color: var(--gold);
+        }
+
+        .stat-card.green {
+            border-top-color: var(--success);
+        }
+
+        .stat-card.orange {
+            border-top-color: var(--warning);
+        }
+
+        .stat-card h3 {
+            margin: 0 0 6px;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--steel);
+            font-family: 'Sora', sans-serif;
+        }
+
+        .stat-card .number {
+            font-size: 32px;
+            font-weight: 800;
+            color: var(--navy);
+            font-family: 'Sora', sans-serif;
+            margin: 0;
+        }
+
+        .stat-card .desc {
+            font-size: 12.5px;
+            color: #666;
+            margin: 4px 0 0;
+        }
+
+        /* Chart Section Grid */
+        .charts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 24px;
+            margin-bottom: 30px;
+        }
+
+        .chart-card {
+            background: var(--white);
+            border: 1px solid var(--line);
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 8px 24px rgba(19, 32, 67, 0.04);
+        }
+
+        .chart-card h2 {
+            font-family: 'Sora', sans-serif;
+            font-size: 18px;
+            color: var(--navy);
+            margin: 0 0 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Detailed Tables / Sections */
+        .card {
+            background: var(--white);
+            border: 1px solid var(--line);
+            border-radius: 12px;
+            padding: 28px;
+            box-shadow: 0 8px 24px rgba(19, 32, 67, 0.04);
+            margin-bottom: 30px;
+        }
+
+        .card h2 {
+            font-family: 'Sora', sans-serif;
+            font-size: 20px;
+            color: var(--navy);
+            margin: 0 0 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card p {
+            margin: 0 0 20px;
+            color: #555;
+            font-size: 14.5px;
+        }
+
+        /* Status Badge Table UI */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            font-size: 14px;
+        }
+
+        .data-table th, .data-table td {
+            padding: 12px 16px;
+            border-bottom: 1px solid var(--line);
+        }
+
+        .data-table th {
+            background: var(--paper);
+            color: var(--navy);
+            font-family: 'Sora', sans-serif;
+            font-weight: 600;
+        }
+
+        .badge-status {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .badge-status.active {
+            background: #e8f5e9;
+            color: var(--success);
+        }
+
+        .badge-status.pending {
+            background: #fff3e0;
+            color: var(--warning);
+        }
+
+        .badge-status.resolved {
+            background: #e3f2fd;
+            color: #1976d2;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 10px;
+            text-decoration: none;
+            color: var(--navy);
+            font-weight: 600;
+            font-family: 'Sora', sans-serif;
+        }
+
+        .back-link:hover {
+            color: var(--gold);
+        }
+
+        footer {
+            padding: 26px clamp(20px, 5vw, 64px);
+            background: var(--navy);
+            color: rgba(255, 255, 255, 0.65);
+            font-size: 13px;
+            text-align: center;
+            margin-top: 60px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>VDart Analytics <span>Dashboard</span></h1>
+        <p>An overview of applications, registrations, and complaint resolution metrics</p>
+    </header>
+
+    <div class="container">
+
+        <!-- Top Overview Stats -->
+        <div class="stats-grid">
+            <div class="stat-card gold">
+                <h3>New Job Applications</h3>
+                <div class="number">148</div>
+                <div class="desc">Received this month</div>
+            </div>
+
+            <div class="stat-card green">
+                <h3>Candidate Registrations</h3>
+                <div class="number">320</div>
+                <div class="desc">Active profiles in Trichy</div>
+            </div>
+
+            <div class="stat-card orange">
+                <h3>Open Complaints</h3>
+                <div class="number">12</div>
+                <div class="desc">Under review</div>
+            </div>
+
+            <div class="stat-card">
+                <h3>Resolved Complaints</h3>
+                <div class="number">86</div>
+                <div class="desc">Closed with action</div>
+            </div>
+        </div>
+
+        <!-- Graphical Analytics (Chart.js) -->
+        <div class="charts-grid">
+            
+            <!-- Complaint Chart -->
+            <div class="chart-card">
+                <h2>📊 Complaint Resolution Overview</h2>
+                <canvas id="complaintChart" height="220"></canvas>
+            </div>
+
+            <!-- Job Applications Chart -->
+            <div class="chart-card">
+                <h2>📈 Monthly Job Applications</h2>
+                <canvas id="applicationChart" height="220"></canvas>
+            </div>
+
+        </div>
+
+        <!-- Tracked Details Tables -->
+        
+        <!-- 1. Applications -->
+        <div class="card">
+            <h2>💼 Applications Tracking</h2>
+            <p>Track recent candidate roles applied across IT, BPO, and Engineering units.</p>
+
+            <div style="overflow-x: auto;">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Application ID</th>
+                            <th>Candidate Name</th>
+                            <th>Role Applied</th>
+                            <th>Applied Date</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>#APP-9021</td>
+                            <td>Mohamed Nafik</td>
+                            <td>Python Developer / IT</td>
+                            <td>2026-09-02</td>
+                            <td><span class="badge-status active">Interview Scheduled</span></td>
+                        </tr>
+                        <tr>
+                            <td>#APP-9018</td>
+                            <td>Anand Kumar</td>
+                            <td>BPO Process Associate</td>
+                            <td>2026-08-28</td>
+                            <td><span class="badge-status pending">Under HR Review</span></td>
+                        </tr>
+                        <tr>
+                            <td>#APP-8994</td>
+                            <td>Priya Dharshini</td>
+                            <td>Core Mechanical Engineer</td>
+                            <td>2026-08-20</td>
+                            <td><span class="badge-status resolved">Selected</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- 2. Candidate Registration Status -->
+        <div class="card">
+            <h2>📋 Registration Status</h2>
+            <p>See where candidate profiles stand in the Trichy GCC talent pipeline.</p>
+
+            <div style="overflow-x: auto;">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Profile ID</th>
+                            <th>Candidate</th>
+                            <th>Preferred Domain</th>
+                            <th>Resume Status</th>
+                            <th>Verification</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>REG-TRC-551</td>
+                            <td>Suresh Raina</td>
+                            <td>Healthcare IT</td>
+                            <td>Verified (PDF)</td>
+                            <td><span class="badge-status active">Verified</span></td>
+                        </tr>
+                        <tr>
+                            <td>REG-TRC-552</td>
+                            <td>Kavitha M</td>
+                            <td>Software Testing</td>
+                            <td>Pending Upload</td>
+                            <td><span class="badge-status pending">Pending Docs</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- 3. Complaints Log -->
+        <div class="card">
+            <h2>📝 Complaints &amp; Grievances</h2>
+            <p>Overview of open and resolved employee/candidate issues.</p>
+
+            <div style="overflow-x: auto;">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Ticket ID</th>
+                            <th>Category</th>
+                            <th>Submitted Date</th>
+                            <th>Status</th>
+                            <th>Resolution Note</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>VDART-TRC-94821</td>
+                            <td>Payroll / Salary Delay</td>
+                            <td>2026-09-01</td>
+                            <td><span class="badge-status pending">In Progress</span></td>
+                            <td>Forwarded to Finance team</td>
+                        </tr>
+                        <tr>
+                            <td>VDART-TRC-91024</td>
+                            <td>Experience Certificate Delay</td>
+                            <td>2026-08-15</td>
+                            <td><span class="badge-status resolved">Resolved</span></td>
+                            <td>Certificate dispatched via Email</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <a href="index.html" class="back-link">&larr; Back to Home Dashboard</a>
+
+    </div>
+
+    <footer>
+        &copy; 2026 VDart Trichy. All rights reserved.
+    </footer>
+
+    <!-- Chart JavaScript Initialization -->
+    <script>
+        // 1. Complaint Status Donut Chart
+        const ctx1 = document.getElementById('complaintChart').getContext('2d');
+        new Chart(ctx1, {
+            type: 'doughnut',
+            data: {
+                labels: ['Resolved Complaints', 'In Progress', 'Pending Review'],
+                datasets: [{
+                    data: [86, 12, 5],
+                    backgroundColor: ['#2e7d32', '#ed6c02', '#d32f2f'],
+                    borderWidth: 2,
+                    borderColor: '#ffffff'
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'bottom'
+                    }
+                }
+            }
+        });
+
+        // 2. Job Applications Bar Chart
+        const ctx2 = document.getElementById('applicationChart').getContext('2d');
+        new Chart(ctx2, {
+            type: 'bar',
+            data: {
+                labels: ['May', 'Jun', 'Jul', 'Aug', 'Sep'],
+                datasets: [{
+                    label: 'Applications Received',
+                    data: [65, 85, 110, 132, 148],
+                    backgroundColor: '#132043',
+                    borderRadius: 6
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                }
+            }
+        });
+    </script>
+
+</body>
+
+</html>

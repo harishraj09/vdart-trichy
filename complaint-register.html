@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complaint Register - VDart Trichy</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap"
+        rel="stylesheet">
+
+    <style>
+        :root {
+            --navy: #132043;
+            --navy-2: #1d2f5c;
+            --steel: #3a4d7a;
+            --gold: #c99a3b;
+            --gold-light: #e6c26b;
+            --paper: #f6f5f2;
+            --ink: #1a1d26;
+            --white: #ffffff;
+            --line: rgba(19, 32, 67, 0.12);
+            --success: #2e7d32;
+            --success-bg: #e8f5e9;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            background: var(--paper);
+            color: var(--ink);
+            line-height: 1.6;
+        }
+
+        header {
+            background: linear-gradient(120deg, var(--navy) 0%, var(--navy-2) 55%, var(--steel) 100%);
+            padding: 40px clamp(20px, 5vw, 64px);
+            color: var(--white);
+        }
+
+        header h1 {
+            font-family: 'Sora', sans-serif;
+            font-size: clamp(26px, 4vw, 38px);
+            margin: 0 0 8px;
+        }
+
+        header h1 span {
+            color: var(--gold-light);
+        }
+
+        header p {
+            margin: 0;
+            color: rgba(255, 255, 255, 0.85);
+            font-size: 15px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 0 clamp(20px, 5vw, 24px);
+        }
+
+        .card {
+            background: var(--white);
+            border: 1px solid var(--line);
+            border-radius: 12px;
+            padding: 36px;
+            box-shadow: 0 10px 30px rgba(19, 32, 67, 0.05);
+        }
+
+        .form-group {
+            margin-bottom: 22px;
+        }
+
+        label {
+            display: block;
+            font-family: 'Sora', sans-serif;
+            font-weight: 600;
+            font-size: 14px;
+            color: var(--navy);
+            margin-bottom: 8px;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1.5px solid var(--line);
+            border-radius: 8px;
+            font-size: 15px;
+            font-family: 'Inter', sans-serif;
+            background: var(--white);
+            color: var(--ink);
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: var(--gold);
+            box-shadow: 0 0 0 3px rgba(201, 154, 59, 0.15);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .submit-btn {
+            background: var(--navy);
+            color: var(--white);
+            border: none;
+            padding: 14px 28px;
+            font-family: 'Sora', sans-serif;
+            font-weight: 700;
+            font-size: 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            width: 100%;
+            transition: background 0.2s, transform 0.1s;
+        }
+
+        .submit-btn:hover {
+            background: var(--navy-2);
+        }
+
+        .submit-btn:active {
+            transform: scale(0.99);
+        }
+
+        /* Success Alert Box (Hidden by default) */
+        #successAlert {
+            display: none;
+            background: var(--success-bg);
+            border: 1.5px solid var(--success);
+            color: var(--success);
+            padding: 24px;
+            border-radius: 10px;
+            margin-bottom: 24px;
+            text-align: center;
+        }
+
+        #successAlert h3 {
+            margin: 0 0 8px;
+            font-family: 'Sora', sans-serif;
+            font-size: 20px;
+        }
+
+        .ref-code {
+            display: inline-block;
+            background: var(--white);
+            padding: 8px 16px;
+            border: 1px dashed var(--success);
+            font-family: monospace;
+            font-size: 18px;
+            font-weight: bold;
+            color: var(--navy);
+            margin: 10px 0;
+            border-radius: 6px;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 24px;
+            text-decoration: none;
+            color: var(--navy);
+            font-weight: 600;
+            font-family: 'Sora', sans-serif;
+        }
+
+        .back-link:hover {
+            color: var(--gold);
+        }
+
+        footer {
+            padding: 26px clamp(20px, 5vw, 64px);
+            background: var(--navy);
+            color: rgba(255, 255, 255, 0.65);
+            font-size: 13px;
+            text-align: center;
+            margin-top: 60px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>Complaint <span>Register</span></h1>
+        <p>VDart Trichy - Mannarpuram Resolution Portal</p>
+    </header>
+
+    <div class="container">
+
+        <div class="card">
+            
+            <!-- Success Notification Section -->
+            <div id="successAlert">
+                <h3>🎉 Complaint Registered Successfully!</h3>
+                <p>Please save your unique tracking reference number to check your status later:</p>
+                <div class="ref-code" id="displayRefNumber">VDart-TRC-XXXXX</div>
+                <p style="font-size: 13px; margin: 0;">Our grievance handling committee will review your case within 24-48 working hours.</p>
+            </div>
+
+            <!-- Complaint Form -->
+            <form id="complaintForm" onsubmit="handleComplaintSubmit(event)">
+                
+                <div class="form-group">
+                    <label for="fullName">Full Name</label>
+                    <input type="text" id="fullName" required placeholder="Enter your full name">
+                </div>
+
+                <div class="form-group">
+                    <label for="contactInfo">Contact Number / Email ID</label>
+                    <input type="text" id="contactInfo" required placeholder="Phone number or active email address">
+                </div>
+
+                <div class="form-group">
+                    <label for="category">Complaint Category</label>
+                    <select id="category" required>
+                        <option value="" disabled selected>-- Select appropriate category --</option>
+                        <optgroup label="Payroll & Financial">
+                            <option value="Salary Delay / Non-Payment">Salary Delay / Non-Payment</option>
+                            <option value="Incorrect Salary Calculation / Deductions">Incorrect Salary Calculation / Deductions</option>
+                            <option value="PF, ESI or Tax (TDS) Related Issues">PF, ESI or Tax (TDS) Related Issues</option>
+                            <option value="Expense Reimbursement Delay">Expense Reimbursement Delay</option>
+                        </optgroup>
+                        <optgroup label="Placement & Job Role">
+                            <option value="Mismatch in Job Role or Assigned Project">Mismatch in Job Role or Assigned Project</option>
+                            <option value="Client Interview / Onboarding Delay">Client Interview / Onboarding Delay</option>
+                            <option value="Unfair Termination or Bench Policies">Unfair Termination or Bench Policies</option>
+                            <option value="Offer Letter / Documentation Discrepancy">Offer Letter / Documentation Discrepancy</option>
+                        </optgroup>
+                        <optgroup label="Workplace Conduct & Environment">
+                            <option value="Harassment, Bullying or Toxic Behavior">Harassment, Bullying or Toxic Behavior</option>
+                            <option value="Discrimination or Bias">Discrimination or Bias</option>
+                            <option value="Managerial / Supervisor Misconduct">Managerial / Supervisor Misconduct</option>
+                        </optgroup>
+                        <optgroup label="Administrative & Operations">
+                            <option value="ID Card, Relieving Letter or Experience Certificate Delay">ID Card, Relieving Letter or Experience Certificate Delay</option>
+                            <option value="Leave Policy or Attendance Dispute">Leave Policy or Attendance Dispute</option>
+                            <option value="Other Corporate Grievance">Other Corporate Grievance</option>
+                        </optgroup>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="details">Complaint Details</label>
+                    <textarea id="details" required placeholder="Provide clear description of the issue, including dates, names, or project names if applicable..."></textarea>
+                </div>
+
+                <button type="submit" class="submit-btn">Submit Complaint</button>
+
+            </form>
+
+        </div>
+
+        <a href="index.html" class="back-link">&larr; Back to Home Dashboard</a>
+
+    </div>
+
+    <footer>
+        &copy; 2026 VDart Trichy. All rights reserved.
+    </footer>
+
+    <script>
+        function handleComplaintSubmit(event) {
+            event.preventDefault(); // Stop form from refreshing page
+
+            // Generate a random unique tracking reference number
+            const randomNum = Math.floor(10000 + Math.random() * 90000);
+            const refNumber = `VDART-TRC-${randomNum}`;
+
+            // Show reference number in the alert box
+            document.getElementById("displayRefNumber").innerText = refNumber;
+            
+            // Hide form and display success alert
+            document.getElementById("complaintForm").style.display = "none";
+            document.getElementById("successAlert").style.display = "block";
+            
+            // Optional: scroll smoothly to top of card
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+
+</body>
+
+</html>

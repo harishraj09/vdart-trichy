@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Services - VDart Trichy</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --navy: #132043;
+            --navy-2: #1d2f5c;
+            --steel: #3a4d7a;
+            --gold: #c99a3b;
+            --gold-light: #e6c26b;
+            --paper: #f6f5f2;
+            --ink: #1a1d26;
+            --white: #ffffff;
+            --line: rgba(19, 32, 67, 0.12);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            background: var(--paper);
+            color: var(--ink);
+        }
+
+        /* ================= HEADER ================= */
+        header {
+            position: relative;
+            background: linear-gradient(120deg, var(--navy) 0%, var(--navy-2) 55%, var(--steel) 100%);
+            padding: 28px clamp(20px, 5vw, 64px);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 30px;
+        }
+
+        .brand h1 {
+            margin: 0;
+            font-family: 'Sora', sans-serif;
+            font-weight: 800;
+            color: var(--white);
+            font-size: clamp(28px, 4vw, 42px);
+        }
+
+        .brand h1 span {
+            color: var(--gold-light);
+        }
+
+        .nav-link {
+            color: var(--gold-light);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 15px;
+        }
+
+        .nav-link:hover {
+            text-decoration: underline;
+        }
+
+        /* ================= MAIN CONTAINER ================= */
+        main {
+            padding: 40px clamp(20px, 5vw, 64px) 80px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .page-header {
+            margin-bottom: 40px;
+        }
+
+        .page-header h2 {
+            font-family: 'Sora', sans-serif;
+            font-size: clamp(28px, 4vw, 38px);
+            color: var(--navy);
+            margin: 0 0 10px;
+        }
+
+        .page-header p {
+            color: #4b5266;
+            font-size: 17px;
+            margin: 0;
+        }
+
+        /* ================= SERVICES GRID ================= */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+        }
+
+        .service-card {
+            background: var(--white);
+            padding: 28px;
+            border-radius: 12px;
+            border: 1px solid var(--line);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 24px rgba(19, 32, 67, 0.12);
+        }
+
+        .service-card .icon {
+            font-size: 32px;
+            margin-bottom: 16px;
+            display: inline-block;
+        }
+
+        .service-card h3 {
+            font-family: 'Sora', sans-serif;
+            color: var(--navy);
+            margin: 0 0 12px;
+            font-size: 20px;
+        }
+
+        .service-card p {
+            color: #555e75;
+            font-size: 15px;
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        /* ================= FOOTER ================= */
+        footer {
+            padding: 24px;
+            background: var(--navy);
+            color: rgba(255, 255, 255, 0.65);
+            font-size: 13px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ================= HEADER ================= -->
+    <header>
+        <div class="brand">
+            <h1>VDart <span>Trichy</span></h1>
+        </div>
+        <a href="index.html" class="nav-link">← Back to Home</a>
+    </header>
+
+    <!-- ================= MAIN CONTENT ================= -->
+    <main>
+
+        <div class="page-header">
+            <h2>Our Services</h2>
+            <p>End-to-end staffing support for employers and candidates alike.</p>
+        </div>
+
+        <div class="services-grid">
+
+            <!-- 1. Permanent Staffing -->
+            <div class="service-card">
+                <span class="icon">👥</span>
+                <h3>Permanent Staffing</h3>
+                <p>Full-time hiring across technical and non-technical roles to build long-term, high-performing teams for your organization.</p>
+            </div>
+
+            <!-- 2. Contract Staffing -->
+            <div class="service-card">
+                <span class="icon">⏳</span>
+                <h3>Contract Staffing</h3>
+                <p>Flexible short-term and project-based workforce solutions tailored to meet sudden project demands and seasonal requirements.</p>
+            </div>
+
+            <!-- 3. Payroll Management -->
+            <div class="service-card">
+                <span class="icon">💵</span>
+                <h3>Payroll Management</h3>
+                <p>Seamless and compliant payroll processing for contract employees, ensuring timely disbursements and regulatory adherence.</p>
+            </div>
+
+            <!-- 4. IT Staffing & Augmentation -->
+            <div class="service-card">
+                <span class="icon">💻</span>
+                <h3>IT Staffing &amp; Augmentation</h3>
+                <p>Specialized recruitment for software engineering, cloud, cybersecurity, data science, and IT infrastructure management.</p>
+            </div>
+
+            <!-- 5. Non-IT / BPO Operations -->
+            <div class="service-card">
+                <span class="icon">🎧</span>
+                <h3>Non-IT / BPO Operations</h3>
+                <p>End-to-end hiring for customer support, back-office operations, administrative support, finance, and logistics operations.</p>
+            </div>
+
+            <!-- 6. Contract-to-Hire (C2H) -->
+            <div class="service-card">
+                <span class="icon">🔄</span>
+                <h3>Contract-to-Hire (C2H)</h3>
+                <p>Evaluate talent on the job before making a permanent hiring commitment, minimizing risks and ensuring cultural alignment.</p>
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- ================= FOOTER ================= -->
+    <footer>
+        © 2026 VDart Trichy. All rights reserved.
+    </footer>
+
+</body>
+
+</html>

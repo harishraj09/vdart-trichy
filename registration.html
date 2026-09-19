@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Registration - VDart Trichy</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --navy: #132043;
+            --navy-2: #1d2f5c;
+            --steel: #3a4d7a;
+            --gold: #c99a3b;
+            --gold-light: #e6c26b;
+            --paper: #f6f5f2;
+            --ink: #1a1d26;
+            --white: #ffffff;
+            --line: rgba(19, 32, 67, 0.12);
+            --green: #1e7d4b;
+            --red: #b3382c;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            background: var(--paper);
+            color: var(--ink);
+        }
+
+        header {
+            background: linear-gradient(120deg, var(--navy) 0%, var(--navy-2) 55%, var(--steel) 100%);
+            padding: 26px clamp(20px, 5vw, 64px);
+        }
+
+        header .eyebrow {
+            font-size: 13px;
+            letter-spacing: 0.14em;
+            color: var(--gold-light);
+            font-weight: 600;
+        }
+
+        header h1 {
+            margin: 4px 0 0;
+            font-family: 'Sora', sans-serif;
+            font-weight: 800;
+            color: var(--white);
+            font-size: clamp(24px, 4vw, 36px);
+        }
+
+        header h1 span { color: var(--gold-light); }
+
+        main {
+            max-width: 620px;
+            margin: 0 auto;
+            padding: 40px 20px 90px;
+        }
+
+        .notice {
+            background: #fff8ea;
+            border: 1px solid var(--gold);
+            border-left: 4px solid var(--gold);
+            border-radius: 8px;
+            padding: 14px 16px;
+            font-size: 14px;
+            color: #6b4e14;
+            margin-bottom: 28px;
+            line-height: 1.6;
+        }
+
+        .card {
+            background: var(--white);
+            border: 1px solid var(--line);
+            border-radius: 14px;
+            padding: 30px clamp(18px, 4vw, 34px);
+            box-shadow: 0 12px 30px rgba(19,32,67,0.06);
+        }
+
+        .card h2 {
+            font-family: 'Sora', sans-serif;
+            font-size: 20px;
+            color: var(--navy);
+            margin: 0 0 4px;
+        }
+
+        .card .sub {
+            font-size: 13.5px;
+            color: #6b7280;
+            margin: 0 0 22px;
+        }
+
+        .section-label {
+            font-family: 'Sora', sans-serif;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 0.04em;
+            color: var(--navy-2);
+            text-transform: uppercase;
+            margin: 22px 0 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .section-label:first-of-type { margin-top: 0; }
+
+        .field { margin-bottom: 16px; }
+
+        .field label {
+            display: block;
+            font-size: 13.5px;
+            font-weight: 600;
+            color: var(--ink);
+            margin-bottom: 6px;
+        }
+
+        .field input, .field select {
+            width: 100%;
+            padding: 11px 13px;
+            border: 1px solid var(--line);
+            border-radius: 8px;
+            font-size: 14.5px;
+            font-family: 'Inter', sans-serif;
+            color: var(--ink);
+            background: var(--paper);
+            transition: border-color 0.15s ease, box-shadow 0.15s ease;
+        }
+
+        .field input:focus, .field select:focus {
+            outline: none;
+            border-color: var(--gold);
+            box-shadow: 0 0 0 3px rgba(201,154,59,0.15);
+            background: var(--white);
+        }
+
+        .pw-wrap { position: relative; }
+
+        .pw-wrap button {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 13px;
+            color: var(--navy-2);
+            font-weight: 600;
+        }
+
+        .hint {
+            font-size: 12px;
+            color: #8a8f9c;
+            margin-top: 5px;
+        }
+
+        .msg {
+            font-size: 12.5px;
+            margin-top: 5px;
+            display: none;
+        }
+
+        .msg.error { color: var(--red); }
+        .msg.ok { color: var(--green); }
+
+        .checkbox-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin: 20px 0;
+            font-size: 13.5px;
+            color: #4b5266;
+            line-height: 1.5;
+        }
+
+        .checkbox-row input { margin-top: 3px; }
+
+        button.submit-btn {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(120deg, var(--navy), var(--navy-2));
+            color: var(--white);
+            border: none;
+            border-radius: 9px;
+            font-family: 'Sora', sans-serif;
+            font-weight: 700;
+            font-size: 15.5px;
+            cursor: pointer;
+            transition: opacity 0.15s ease, transform 0.1s ease;
+        }
+
+        button.submit-btn:hover { opacity: 0.92; }
+        button.submit-btn:active { transform: scale(0.99); }
+        button.submit-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+        .success-box {
+            display: none;
+            text-align: center;
+            padding: 30px 10px 10px;
+        }
+
+        .success-box .tick {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: #e7f6ec;
+            color: var(--green);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            margin: 0 auto 16px;
+        }
+
+        .success-box h3 {
+            font-family: 'Sora', sans-serif;
+            color: var(--navy);
+            margin: 0 0 8px;
+        }
+
+        .success-box p {
+            color: #4b5266;
+            font-size: 14px;
+            line-height: 1.6;
+            max-width: 40ch;
+            margin: 0 auto 22px;
+        }
+
+        .success-box .creds {
+            background: var(--paper);
+            border: 1px dashed var(--gold);
+            border-radius: 8px;
+            padding: 14px;
+            text-align: left;
+            font-size: 13.5px;
+            margin-bottom: 20px;
+        }
+
+        .success-box .creds div { margin-bottom: 6px; }
+        .success-box .creds b { color: var(--navy); }
+
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 18px;
+            font-size: 13.5px;
+            color: var(--navy-2);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .back-link:hover { text-decoration: underline; }
+
+        footer {
+            padding: 22px;
+            background: var(--navy);
+            color: rgba(255,255,255,0.6);
+            font-size: 12.5px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <span class="eyebrow">STAFFING &amp; RECRUITMENT PARTNER</span>
+        <h1>VDart <span>Employee Registration</span></h1>
+    </header>
+
+    <main>
+
+        <div class="notice">
+            ⚠️ <strong>One-Time Registration Only.</strong> This form is only for existing VDart staff. Register once using your Employee ID, choose your own Username &amp; Password — you will use the <strong>same login</strong> every time afterward via the Login page. Do not register twice.
+        </div>
+
+        <div class="card" id="formCard">
+            <h2>Employee Self-Registration</h2>
+            <p class="sub">Verify your employee details, then set your own login credentials.</p>
+
+            <form id="regForm">
+
+                <div class="section-label">🪪 Verify Your Employee Details</div>
+
+                <div class="field">
+                    <label for="empId">Employee ID / Staff Code *</label>
+                    <input type="text" id="empId" placeholder="e.g. VD-TRY-0123" required>
+                </div>
+
+                <div class="field">
+                    <label for="fullName">Full Name (as per company records) *</label>
+                    <input type="text" id="fullName" placeholder="Full name" required>
+                </div>
+
+                <div class="field">
+                    <label for="mobile">Registered Mobile Number *</label>
+                    <input type="tel" id="mobile" placeholder="10-digit mobile number" pattern="[0-9]{10}" required>
+                </div>
+
+                <div class="field">
+                    <label for="email">Official / Personal Email *</label>
+                    <input type="email" id="email" placeholder="name@example.com" required>
+                </div>
+
+                <div class="field">
+                    <label for="dept">Department</label>
+                    <select id="dept">
+                        <option value="">Select department</option>
+                        <option>Recruitment</option>
+                        <option>IT Staffing</option>
+                        <option>Operations</option>
+                        <option>HR</option>
+                        <option>Finance</option>
+                        <option>Sales / BD</option>
+                        <option>Admin</option>
+                        <option>Other</option>
+                    </select>
+                </div>
+
+                <div class="section-label">🔐 Create Your Login</div>
+
+                <div class="field">
+                    <label for="username">Create Username *</label>
+                    <input type="text" id="username" placeholder="Choose a username" required autocomplete="off">
+                    <div class="hint">You will use this exact username to login next time.</div>
+                </div>
+
+                <div class="field">
+                    <label for="password">Create Password *</label>
+                    <div class="pw-wrap">
+                        <input type="password" id="password" placeholder="Minimum 8 characters" required autocomplete="new-password">
+                        <button type="button" data-target="password">SHOW</button>
+                    </div>
+                    <div class="hint">Use at least 8 characters with a number.</div>
+                </div>
+
+                <div class="field">
+                    <label for="confirmPassword">Confirm Password *</label>
+                    <div class="pw-wrap">
+                        <input type="password" id="confirmPassword" placeholder="Re-enter password" required autocomplete="new-password">
+                        <button type="button" data-target="confirmPassword">SHOW</button>
+                    </div>
+                    <div class="msg error" id="matchMsg">Passwords do not match.</div>
+                </div>
+
+                <div class="checkbox-row">
+                    <input type="checkbox" id="confirmOnce" required>
+                    <label for="confirmOnce">I confirm I am an existing VDart employee and understand this registration can be done only once. I am responsible for remembering this username &amp; password.</label>
+                </div>
+
+                <button type="submit" class="submit-btn" id="submitBtn">Register</button>
+
+            </form>
+
+            <div class="success-box" id="successBox">
+                <div class="tick">✓</div>
+                <h3>Registration Successful</h3>
+                <p>Your login has been created. Please save these details — use them every time you login.</p>
+                <div class="creds">
+                    <div><b>Username:</b> <span id="outUser"></span></div>
+                    <div><b>Employee ID:</b> <span id="outEmpId"></span></div>
+                </div>
+                <a href="login.html" class="back-link" style="display:inline-block;background:var(--navy);color:#fff;padding:12px 22px;border-radius:8px;font-weight:600;text-decoration:none;">Go to Login →</a>
+            </div>
+
+        </div>
+
+        <a href="index.html" class="back-link">← Back to Home</a>
+
+    </main>
+
+    <footer>© 2026 VDart Trichy. All rights reserved.</footer>
+
+    <script>
+        const form = document.getElementById('regForm');
+        const pwField = document.getElementById('password');
+        const cpwField = document.getElementById('confirmPassword');
+        const matchMsg = document.getElementById('matchMsg');
+        const submitBtn = document.getElementById('submitBtn');
+
+        document.querySelectorAll('.pw-wrap button').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const target = document.getElementById(btn.dataset.target);
+                const isPw = target.type === 'password';
+                target.type = isPw ? 'text' : 'password';
+                btn.textContent = isPw ? 'HIDE' : 'SHOW';
+            });
+        });
+
+        function checkMatch() {
+            if (cpwField.value && pwField.value !== cpwField.value) {
+                matchMsg.style.display = 'block';
+                return false;
+            }
+            matchMsg.style.display = 'none';
+            return true;
+        }
+
+        pwField.addEventListener('input', checkMatch);
+        cpwField.addEventListener('input', checkMatch);
+
+        form.addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            if (pwField.value.length < 8) {
+                alert('Password must be at least 8 characters.');
+                return;
+            }
+            if (!checkMatch()) return;
+
+            // NOTE: This demo only shows the flow.
+            // Real usage needs a backend (database) to actually
+            // store credentials and block duplicate registrations.
+
+            document.getElementById('outUser').textContent = document.getElementById('username').value;
+            document.getElementById('outEmpId').textContent = document.getElementById('empId').value;
+
+            document.getElementById('formCard').querySelector('form').style.display = 'none';
+            document.querySelectorAll('.notice, h2, .sub')[0]; // no-op guard
+            document.getElementById('successBox').style.display = 'block';
+        });
+    </script>
+
+</body>
+</html>
